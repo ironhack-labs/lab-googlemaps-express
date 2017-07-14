@@ -3,15 +3,19 @@
   <head>
     <title>The Best Places on Earth</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript"> let myRestaurants = [<%- restaurants %>] </script>
+    
   </head>
   <body>
     <div class="container">
       </div>
       <div class="info">
         <h3>List all restaurants</h3>
-        <a href="/new">Create new restaurant</a>
+        <a href="/new">Add new restaurant</a>
+
         <ul>
           <% restaurants.forEach((restaurant) => { %>
+
             <li>
               <a href="/<%= restaurant._id%>">
                 <%= restaurant.name%><span><%= restaurant.description %></span>
@@ -24,11 +28,14 @@
           <% }) %>
         </ul>
       </div>
+      <div id="map"></div>
     </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRAy8GNwikqlf1dcb-2FRzWrZtJwdGAuY"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+
   </body>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBJPvYIaR5ozIx_0-uWiGeO9cK4IxHww">
-  </script>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="/javascripts/main.js"></script>
 </html>

@@ -5,18 +5,24 @@ const Restaurant = require('../models/restaurant');
 /* GET home page. */
 router.route('/')
 	.get((req, res, next) => {
-	  Restaurant.find((error, restaurants) => {
+	  Restaurant.find({}, (error, restaurants) => {
 	  	if (error) {
 	  		next(error);
 	  	} else {
-	  		res.render('restaurants/index', { restaurants });
+				restaurants.forEach(restaurant => restaurant._id = restaurant._id)
+	  		res.render('restaurants/index', { restaurants, myRestaurants: [] });
 	  	}
 	  })
 	})
   .post((req, res, next) => {
+		let location = {
+			type: 'Point',
+			coordinates: [req.body.longitude, req.body.latitude]
+		};
     const newRestaurant = {
       name:        req.body.name,
       description: req.body.description,
+			location:    location
     };
 
   	const restaurant = new Restaurant(newRestaurant);
@@ -86,5 +92,6 @@ router.route('/:restaurant_id/delete')
 	    }
     });
 	});
+
 
 module.exports = router;

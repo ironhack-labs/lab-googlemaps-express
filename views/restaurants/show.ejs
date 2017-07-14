@@ -7,11 +7,17 @@
   <body>
     <h3 id="restaurantName" data-id="<%= restaurant.id %>"><%= restaurant.name %></h3>
     <p><%= restaurant.description %></p>
+    <p>Lat: <span id = "lat"> <%= restaurant.location.coordinates[1] %></span></p>
+    <p>Lng: <span id = "lng"> <%= restaurant.location.coordinates[0] %></span></p>
+
+    <div id="map"></div>
+
     <a href="/">List</a>
   </body>
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBJPvYIaR5ozIx_0-uWiGeO9cK4IxHww">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRAy8GNwikqlf1dcb-2FRzWrZtJwdGAuY">
   </script>
-  <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
   <script type="text/javascript" src="/javascripts/show.js"></script>
 </html>
