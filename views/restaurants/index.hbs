@@ -6,29 +6,29 @@
   </head>
   <body>
     <div class="container">
-      </div>
+    </div>
       <div class="info">
         <h3>List all restaurants</h3>
         <a href="/new">Create new restaurant</a>
         <ul>
-          <% restaurants.forEach((restaurant) => { %>
+          {{#each restaurants}}
             <li>
-              <a href="/<%= restaurant._id%>">
-                <%= restaurant.name%><span><%= restaurant.description %></span>
+              <a href="/{{ this._id}}">
+                {{ this.name}}<span>{{ this.description }}</span>
               </a>
                |
-              <a href="/<%= restaurant._id%>/edit">Edit</a>
+              <a href="/{{ this._id}}/edit">Edit</a>
                |
-              <a href="/<%= restaurant._id%>/delete">Delete</a>
+              <a href="/{{ this._id}}/delete">Delete</a>
             </li>
-          <% }) %>
+          {{/each }}
         </ul>
       </div>
-    </div>
+      <div id="map"></div>
   </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBJPvYIaR5ozIx_0-uWiGeO9cK4IxHww">
   </script>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/javascripts/main.js"></script>
 </html>

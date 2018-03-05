@@ -1,9 +1,9 @@
-$(document).ready(function() {
-	
-
+window.onload = () => {
+	const lat = parseFloat(document.getElementById('latitude').value)
+	const lng = parseFloat(document.getElementById('longitude').value)
 	var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
-    center: {lat: parseFloat(document.getElementById('latitude').value), lng: parseFloat(document.getElementById('longitude').value)}
+    center: {lat, lng}
   });
   new google.maps.Marker({
     map: map,
@@ -11,7 +11,6 @@ $(document).ready(function() {
   });
   
   var geocoder = new google.maps.Geocoder();
-
   document.getElementById('submit').addEventListener('click', function() {
     geocodeAddress();
   });
@@ -33,4 +32,4 @@ $(document).ready(function() {
 	    }
 	  });
 	}
-});
+};

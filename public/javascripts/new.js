@@ -1,4 +1,4 @@
-$(document).ready(function() {
+window.onload = () => {
 	
 	var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
@@ -28,4 +28,16 @@ $(document).ready(function() {
 	    }
 	  });
 	}
-});
+
+	document.getElementById('submit').addEventListener('click', () => {
+		axios.get(`http://localhost:3000/api/search?lat=${center.lat}&lng=${center.lng}`)
+		.then(restaurants => {
+			deleteMarkers();
+			placeRestaurants(restaurants);
+		})
+		.catch(error => {
+      console.log('error'); 
+    });
+	});
+	
+};

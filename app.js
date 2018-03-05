@@ -5,6 +5,7 @@ const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const mongoose     = require('mongoose');
+const hbs          = require('hbs')
 
 const index = require('./routes/index');
 
@@ -12,7 +13,7 @@ const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
 
 mongoose.connect('mongodb://localhost:27017/restaurantsDB');
 // uncomment after placing your favicon in /public
