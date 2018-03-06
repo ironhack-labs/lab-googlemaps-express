@@ -44,7 +44,7 @@ window.onload = () => {
       placeRestaurants(response.data.restaurants)
     })
     .catch(error => {
-      console.log(error)
+      next(error)
     })
   }
 
