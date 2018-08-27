@@ -1,7 +1,7 @@
 window.onload = () => {
 
   var restaurantId = document.getElementById('restaurantName').getAttribute('data-id');
-  var url = `http://localhost:3000/api/${restaurantId}`;
+  var url = `/api/${restaurantId}`;
   
   axios.get(url)
   .then(response => {

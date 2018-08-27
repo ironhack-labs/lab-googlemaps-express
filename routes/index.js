@@ -71,24 +71,24 @@ router.post('/:restaurant_id', (req, res, next) => {
 	});
 
 
-	router.get('/:restaurant_id/edit', (req, res, next) => {
-		Restaurant.findById(req.params.restaurant_id, (error, restaurant) => {
-			if (error) {
-				next(error);
-			} else {
-				res.render('restaurants/update', { restaurant });
-			}
-		})
+router.get('/:restaurant_id/edit', (req, res, next) => {
+	Restaurant.findById(req.params.restaurant_id, (error, restaurant) => {
+		if (error) {
+			next(error);
+		} else {
+			res.render('restaurants/update', { restaurant });
+		}
+	})
 });
 
 router.get('/:restaurant_id/delete', (req, res, next) => {
-		Restaurant.remove({ _id: req.params.restaurant_id }, function(error, restaurant) {
-	    if (error) {
-	    	next(error)
-	    } else {
-	    	res.redirect('/')
-	    }
-    });
+	Restaurant.remove({ _id: req.params.restaurant_id }, function(error, restaurant) {
+		if (error) {
+			next(error)
+		} else {
+			res.redirect('/')
+		}
+	});
 });
 
 module.exports = router;

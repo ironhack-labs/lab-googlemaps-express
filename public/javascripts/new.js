@@ -30,7 +30,7 @@ window.onload = () => {
 	}
 
 	document.getElementById('submit').addEventListener('click', () => {
-		axios.get(`http://localhost:3000/api/search?lat=${center.lat}&lng=${center.lng}`)
+		axios.get(`/api/search?lat=${center.lat}&lng=${center.lng}`)
 		.then(restaurants => {
 			deleteMarkers();
 			placeRestaurants(restaurants);

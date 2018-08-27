@@ -11,7 +11,7 @@ window.onload = () => {
     center: ironhackBCN
   });
 
-  const center = {
+  let center = {
     lat: undefined,
     lng: undefined
   };  
@@ -21,9 +21,9 @@ window.onload = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       center = { lat: position.coords.latitude, lng: position.coords.longitude };
       map.setCenter(center);
-      getRestaurant();
+      getRestaurants();
     }, () => {
-      getRestaurant();
+      getRestaurants();
       console.log('Error in the geolocation service.');
     });
   } else {
@@ -38,8 +38,8 @@ window.onload = () => {
     markers = [];
   }
 
-  function getRestaurant() {
-    axios.get("http://localhost:3000/api")
+  function getRestaurants() {
+    axios.get("/api")
     .then( response => {
       placeRestaurants(response.data.restaurants)
     })
@@ -64,4 +64,3 @@ window.onload = () => {
   }
 
 };
-
