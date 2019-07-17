@@ -1,38 +1,40 @@
 window.onload = () => {
-  const ironhackBCN= {
-    lat: 19.4213, 
-    lng: -99.1630,
-  };
   
-  const markers = []
-  
-  const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: ironhackBCN
-  });
-
-const myMarker = new google.maps.Marker ({
-  position: {
-    lat: 19.4213,
-    lng: -99.1630,
-  },
-  map: map,
-  title: "IronHack Mexico"
-})
-
   let center = {
     lat: undefined,
     lng: undefined
   }; 
 };
+const ironhackBCN= {
+  lat: 19.4213, 
+  lng: -99.1630,
+};
+
+const markers = []
+
+const map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 13,
+  center: ironhackBCN
+});
+
+const myMarker = new google.maps.Marker ({
+position: {
+  lat: 19.4213,
+  lng: -99.1630,
+},
+map: map,
+title: "IronHack Mexico"
+})
 
 const getRestaurants = () => {
   fetch("/restaurants/api")
-   .then( response => {
-     placeRestaurants(response.data.restaurants);
+   .then( response => (response.json()))
+   .then(res => {
+     console.log(res.restaurants)
+     placeRestaurants(res.restaurants);
    })
-   .catch(error => {
-     console.log(error);
+   .catch(err => {
+     console.log(err);
    })
  }
 
