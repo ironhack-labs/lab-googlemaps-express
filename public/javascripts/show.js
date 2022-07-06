@@ -11,13 +11,25 @@ window.addEventListener('load', () => {
     zoom: 13,
     center: ironhackBCN
   });
-let markers =[]
-  function getRestaurants() {
+
+
+//en el get del axios debe ir algo asi3
+//`/restaurants/api/${id}`
+// no llega: console.log("hey", req.params.id)
+                        //id
+
+let url = window.location.href
+
+//http://localhost:3000/restaurants/62c5d52e8ee0d26aa86320e0
+let id = url.slice(34)
+console.log(id)
+                        
+  function getRestaurant() {
     axios
-      .get('/restaurants/api')
+      .get(`/restaurants/api/${id}`)
       .then(response => {
-        console.log("yo soy la respuesta",response)
-        placeRestaurants(response.data.restaurants);
+        //console.log("yo soy la respuesta",response)
+        placeRestaurants(response.data.restaurant);
         
       })
       .catch(error => {
@@ -25,22 +37,24 @@ let markers =[]
       });
   }
   
-  function placeRestaurants(restaurants) {
-    for (let restaurant of restaurants) {
+  function placeRestaurants(restaurant) {
+    
       const center = {
         lat: restaurant.location.coordinates[1],
         lng: restaurant.location.coordinates[0]
       };
-      console.log("yo soy el restaurat",center)
+      //console.log("yo soy el restaurat",center)
       const pin = new google.maps.Marker({
         position: center,
         map: map,
         title: restaurant.name
       });
-      markers.push(pin);
-    }
-  }
-  getRestaurants();
+     
+    
+  } 
+
+
+  getRestaurant();
 
 });
 
