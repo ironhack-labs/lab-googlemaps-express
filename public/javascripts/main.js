@@ -1,4 +1,7 @@
 window.addEventListener('load', () => {
+
+
+
   const ironhackBCN = {
     lat: -12.0547601,
     lng: -77.0909803
@@ -11,6 +14,8 @@ window.addEventListener('load', () => {
     zoom: 13,
     center: ironhackBCN
   });
+
+
 let markers =[]
   function getRestaurants() {
     axios
@@ -42,42 +47,7 @@ let markers =[]
   }
   getRestaurants();
 
-
-
-//////////
-/* 
-const geocoder = new google.maps.Geocoder();
- 
-document.getElementById('submit').addEventListener('click', () => {
-  geocodeAddress(geocoder, map);
-});
- 
-function geocodeAddress(geocoder, resultsMap) {
-  const address = document.getElementById('address').value;
- 
-  geocoder.geocode({ address: address }, (results, status) => {
-    if (status === 'OK') {
-      resultsMap.setCenter(results[0].geometry.location);
-      let marker = new google.maps.Marker({
-        map: resultsMap,
-        position: results[0].geometry.location
-      });
-      document.getElementById('latitude').value = results[0].geometry.location.lat();
-      document.getElementById('longitude').value = results[0].geometry.location.lng();
-    } else {
-      console.log(`Geocode was not successful for the following reason: ${status}`);
-    }
-  });
-}
- */
-
-
-
-
-
-
-
-
+  
 
 });
 

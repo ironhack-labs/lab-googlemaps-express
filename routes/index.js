@@ -1,10 +1,11 @@
 const express = require('express');
 const router  = express.Router();
 const Restaurant = require('../models/restaurant');
+const key = process.env.GOOGLE_KEY
 
 // GET => render the form to create a new restaurant
 router.get('/new', (req, res, next) => {
-  res.render('restaurants/new');
+  res.render('restaurants/new', {key});
 });
 
 // POST => to create new restaurant and save it to the DB
@@ -38,7 +39,7 @@ router.get('/', (req, res, next) => {
 		if (error) { 
 			next(error); 
 		} else { 
-			res.render('restaurants/index', { restaurants: restaurantsFromDB });
+			res.render('restaurants/index', { restaurants: restaurantsFromDB, key});
 		}
 	});
 });
@@ -49,7 +50,7 @@ router.get('/:restaurant_id/edit', (req, res, next) => {
 		if (error) {
 			next(error);
 		} else {
-			res.render('restaurants/update', { restaurant });
+			res.render('restaurants/update', { restaurant, key });
 		}
 	});
 });
@@ -115,7 +116,7 @@ router.get('/:restaurant_id', (req, res, next) => {
 		if (error) {
 			next(error);
 		} else {
-			res.render('restaurants/show', { restaurant: restaurant });
+			res.render('restaurants/show', { restaurant: restaurant,key });
 			//getRestaurant(id)
 		}
 	});
