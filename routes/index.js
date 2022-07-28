@@ -1,29 +1,36 @@
 const express = require('express');
 const router  = express.Router();
 const Restaurant = require('../models/restaurant');
+const key = process.env.GOOGLE_KEY
 
 // GET => render the form to create a new restaurant
 router.get('/new', (req, res, next) => {
-  res.render('restaurants/new');
+  res.render('restaurants/new', {key});
 });
 
 // POST => to create new restaurant and save it to the DB
 router.post('/', (req, res, next) => {
   // add location object here
-  
+  const { longitude, latitude, name, description } = req.body;
 
 	const newRestaurant = new Restaurant({
 		name: req.body.name,
-		description: req.body.description
+		description: req.body.description,
+		location: {
+      type: 'Point',
+      coordinates: [longitude, latitude]
+    }
 	});
 
-	newRestaurant.save((error) => {
-		if (error) { 
-			next(error); 
-		} else { 
-			res.redirect('/restaurants');
-		}
+	newRestaurant
+	.save()
+	.then(restaurant => {
+		res.redirect('/restaurants');
+	})
+	.catch(error => {
+		next(error);
 	});
+
 });
 
 // GET => to retrieve all the restaurants from the DB
@@ -32,7 +39,7 @@ router.get('/', (req, res, next) => {
 		if (error) { 
 			next(error); 
 		} else { 
-			res.render('restaurants/index', { restaurants: restaurantsFromDB });
+			res.render('restaurants/index', { restaurants: restaurantsFromDB, key});
 		}
 	});
 });
@@ -43,7 +50,7 @@ router.get('/:restaurant_id/edit', (req, res, next) => {
 		if (error) {
 			next(error);
 		} else {
-			res.render('restaurants/update', { restaurant });
+			res.render('restaurants/update', { restaurant, key });
 		}
 	});
 });
@@ -79,7 +86,7 @@ router.get('/:restaurant_id/delete', (req, res, next) => {
 });
 
 
-// to see raw data in your browser, just go on: http://localhost:3000/api
+// to see raw data in your browser, just go on: http://localhost:3000/restaurants/api
 router.get('/api', (req, res, next) => {
 	Restaurant.find({}, (error, allRestaurantsFromDB) => {
 		if (error) { 
@@ -90,7 +97,7 @@ router.get('/api', (req, res, next) => {
 	});
 });
 
-// to see raw data in your browser, just go on: http://localhost:3000/api/someIdHere
+// to see raw data in your browser, just go on: http://localhost:3000/restaurants/api/someIdHere
 router.get('/api/:id', (req, res, next) => {
 	let restaurantId = req.params.id;
 	Restaurant.findOne({_id: restaurantId}, (error, oneRestaurantFromDB) => {
@@ -98,6 +105,7 @@ router.get('/api/:id', (req, res, next) => {
 			next(error) 
 		} else { 
 			res.status(200).json({ restaurant: oneRestaurantFromDB }); 
+
 		}
 	});
 });
@@ -108,7 +116,8 @@ router.get('/:restaurant_id', (req, res, next) => {
 		if (error) {
 			next(error);
 		} else {
-			res.render('restaurants/show', { restaurant: restaurant });
+			res.render('restaurants/show', { restaurant: restaurant,key });
+			//getRestaurant(id)
 		}
 	});
 });
